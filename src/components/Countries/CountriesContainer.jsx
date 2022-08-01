@@ -18,6 +18,18 @@ export default function CountriesContainer() {
         setValue(e.target.value);
     };
 
+    const [isOpen, setIsOpen] = useState(true);
+
+    const boxHandler = (e) => {
+        setValue(e.target.textContent);
+        setIsOpen(!isOpen);
+    }
+    const inputClick = () => {
+        setIsOpen(true);
+    }
+
+
+
     let filterCountries = countries.filter(country => {
         return country.name.common.toLowerCase().includes(value.toLowerCase())
     })
@@ -25,12 +37,32 @@ export default function CountriesContainer() {
     return (
         <>
             <div className="search">
-                <input
-                    type='text'
-                    placeholder="Enter country"
-                    value={value}
-                    onChange={inputHandler}
-                />
+                <form className="search__form">
+                    <input
+                        type='text'
+                        placeholder="Enter country"
+                        className="search__input"
+                        value={value}
+                        onChange={inputHandler}
+                        onClick={inputClick}
+                    />
+                    <ul className="search__box">
+                        {
+                            value && isOpen
+                                ?
+                                filterCountries.map((country, index) =>
+                                    <li
+                                        key={index}
+                                        className="search__item"
+                                        onClick={boxHandler}
+                                    >{country.name.common}</li>
+                                )
+                                :
+                                null
+                        }
+                    </ul>
+                </form>
+
             </div>
             <Countries countries={filterCountries} />
         </>
