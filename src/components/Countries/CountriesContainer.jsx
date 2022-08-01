@@ -4,21 +4,23 @@ import Countries from './Countries';
 
 export default function CountriesContainer() {
     const [countries, setCountries] = useState([]);
+    const [value, setValue] = useState('');
+    const [isOpen, setIsOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
     const apiEndpoint = 'https://restcountries.com/v3.1/all?fields=name,flags';
 
     useEffect(() => {
         axios.get(apiEndpoint).then((response) => {
+            setIsLoading(false);
             setCountries(response.data);
+            setIsLoading(true);
         });
     }, []);
-
-    const [value, setValue] = useState('');
 
     const inputHandler = (e) => {
         setValue(e.target.value);
     };
-
-    const [isOpen, setIsOpen] = useState(true);
 
     const boxHandler = (e) => {
         setValue(e.target.textContent);
@@ -64,7 +66,12 @@ export default function CountriesContainer() {
                 </form>
 
             </div>
-            <Countries countries={filterCountries} />
+            {
+                isLoading ?
+                    <Countries countries={filterCountries} /> :
+                    <p>loading...</p>
+            }
+
         </>
     )
 }
