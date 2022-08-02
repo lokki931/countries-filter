@@ -91,3 +91,54 @@ code {
   background-color: black;
   color: white;
 }
+
+/* pagination */
+.pageNumbers {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.pageNumbers li {
+  padding: 10px;
+  border: 1px solid #333;
+  cursor: pointer;
+}
+
+.pageNumbers li.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.pageNumbers li button {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  /* font-size: 1.5rem; */
+  cursor: pointer;
+}
+
+.pageNumbers li button:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.loadmore {
+  display: flex;
+  justify-content: center;
+}
+
+.loadmore__btn {
+  background-color: transparent;
+  padding: 10px;
+  border: 1px solid #333;
+  color: #333;
+  /* font-size: 1.5rem; */
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+.loadmore__btn:hover {
+  background-color: #333;
+  color: #fff;
+}
