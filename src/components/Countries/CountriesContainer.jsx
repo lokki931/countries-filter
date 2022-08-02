@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Countries from './Countries';
 
+const itemPerPageCounter = 8;
+
 export default function CountriesContainer() {
     const [countries, setCountries] = useState([]);
     const [value, setValue] = useState('');
@@ -9,7 +11,7 @@ export default function CountriesContainer() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [perPage, setPerPage] = useState(8);
+    const [perPage, setPerPage] = useState(itemPerPageCounter);
 
     const [pageNumberLimit] = useState(5);
     const [maxPageNumberLimit, setMaxPageNumber] = useState(5);
@@ -29,14 +31,14 @@ export default function CountriesContainer() {
     const inputHandler = (e) => {
         setValue(e.target.value);
         setCurrentPage(1);
-        setPerPage(8);
+        setPerPage(itemPerPageCounter);
     };
 
     const boxHandler = (e) => {
         setValue(e.target.textContent);
         setIsOpen(!isOpen);
         setCurrentPage(1);
-        setPerPage(8);
+        setPerPage(itemPerPageCounter);
     }
     const inputClick = () => {
         setIsOpen(true);
@@ -59,9 +61,6 @@ export default function CountriesContainer() {
     const indexOfLast = currentPage * perPage;
     const indexOfFirst = indexOfLast - perPage;
     const currentItems = filterCountries.slice(indexOfFirst, indexOfLast);
-
-
-
 
     const renderPageNumbers = pages.map(number => {
         if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
@@ -108,7 +107,7 @@ export default function CountriesContainer() {
         pageDecBtn = <li onClick={prevHandlerBtn}>&hellip;</li>;
     }
     const loadMoreHandle = () => {
-        setPerPage(perPage + 8);
+        setPerPage(perPage + itemPerPageCounter);
     }
 
     return (
@@ -149,7 +148,7 @@ export default function CountriesContainer() {
                     <Countries countries={currentItems} /> :
                     <p>loading...</p>
             }
-            {
+            {filterCountries.length > itemPerPageCounter &&
                 <>
                     <ul className="pageNumbers">
                         <li>
