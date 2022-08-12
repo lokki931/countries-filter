@@ -22,8 +22,9 @@ export default function CountriesContainer() {
         axios.get(apiEndpoint).then((response) => {
             setIsLoading(false);
             setCountries(response.data);
+            console.log(response.data);
             setIsLoading(true);
-        });
+        }).catch(e => { console.log(e); });
     }, []);
 
     const inputHandler = (e) => {
